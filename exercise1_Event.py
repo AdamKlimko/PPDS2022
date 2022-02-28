@@ -3,6 +3,7 @@ from time import sleep
 from fei.ppds import Thread, Event, Mutex
 from fei.ppds import print
 
+
 """Barrier implemented using an Event object.
 On wait() function, all the threads increment counter
 until counter equals n of threads. The last thread
@@ -24,6 +25,7 @@ class SimpleBarrier:
             self.T.signal()
         self.M.unlock()
         self.T.wait()
+
 
 def barrier_example(barrier, thread_id):
     sleep(randint(1, 10) / 10)

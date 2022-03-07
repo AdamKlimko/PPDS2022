@@ -12,7 +12,8 @@ there are any stored items in storage.
 
 Next we try finding optimal parameters to get the 
 best items ***consumed*** per second.
-###Experiment 1
+
+### Experiment 1
 In this experiment the storage size and producers count is variable. Consumers count
 is **5** and consume time is equal to **sleep(randint(1,10) / 1000)**.We can see
 that storage size doesn't impact the items consumed very much. On the other hand
@@ -20,14 +21,16 @@ the producers count does impact the result. The more producers the more items ca
 be consumed per second
 
 ![img_1.png](img_1.png)
-###Experiment 2
+
+### Experiment 2
 This experiment we change consumers and producers count. We see that the plot
 has a shape similar to a ridge, getting better results where the counts are similar to each
 other and worse results where they are different. It's best to keep producers and 
 consumers counts in balance.
 
 ![img.png](img.png)
-###Experiment 3
+
+### Experiment 3
 Tried making the time to consume an item variable but did not 
 see an impact. There would need to be more tinkering 
 with the program's running time and with the times

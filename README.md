@@ -7,36 +7,37 @@ Each exercise has its own branch. The exercises are numbered 01 - 10.
 ###2 Exactly map the synchronization tasks (primitives) of your choice to the individual parts of the assignment.
 ###3 Write the pseudocode of the problem solution.
 
-def monitor(monitor_id):
-    // Wait until sensors signal all data is ready
-    valid_data.wait()
+    def monitor(monitor_id):
+        // Wait until sensors signal all data is ready
+        valid_data.wait()
 
-    while True:
-        // Use turnstile until sensors block turnstile so they can write
-        turnstile.wait()
+        while True:
+            // Use turnstile until sensors block turnstile so they can write
+            turnstile.wait()
+            turnstile.signal()
+    
+            // Get accsess to data
+            active_monitors_count = ls_monitor.lock(access_data)
+    
+            read_time = 40 - 50ms
+            sleep(read_time)
+            print('monitor {id} reading')
+    
+            // Data read, leave
+            ls_monitor.unlock(access_data)
+
+    def sensor(sensor_id):
+        while True:
+            // Block turnstile so sensors can write
+            turnstile.wait()
+            // Always sleep before doing any actions
+            sleep(50 - 60ms)
+            // Get accsess to data
+            active_sensors_count = ls_sensor.lock(access_data)
+
         turnstile.signal()
 
-        // Get accsess to data
-        active_monitors_count = ls_monitor.lock(access_data)
-
-        read_time = 40 - 50ms
-        sleep(read_time)
-        print('monitor {id} reading')
-
-        // Data read, leave
-        ls_monitor.unlock(access_data)
-
-def sensor(sensor_id):
-    while True:
-        // Block turnstile so sensors can write
-        turnstile.wait()
-        // Always sleep before doing any actions
-        sleep(50 - 60ms)
-        // Get accsess to data
-        active_sensors_count = ls_sensor.lock(access_data)
-
-        turnstile.signal()
-
+    def init():
         write_time = 10-20ms or 20-25ms
         print('sensor {id} writing')
         sleep(write_time)
@@ -57,11 +58,14 @@ def main():
     create_and_run_thread(cidlo, cidlo_T)
     create_and_run_thread(cidlo, cidlo_H)
     for monitor_id in range(8):
-        create_and_run_thread(monitor, monitor_id)
+        create_and_run_thread(monitor, monitor_id)`
         
 
 ###4 Write a program that will suitably model this synchronization task.
+
 See the code in [main.py](main.py)
+
 ###5 Listings:
+
 Example of code output:
 ![img.png](img.png)

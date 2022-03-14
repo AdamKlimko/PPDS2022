@@ -3,9 +3,9 @@ Repository for the course Parallel programming and distributed systems at FEI ST
 Each exercise has its own branch. The exercises are numbered 01 - 10.
 ---
 ##Tasks
-###1 Analyze what types of synchronization tasks (or their modifications or combinations) are involved in this task.
-###2 Exactly map the synchronization tasks (primitives) of your choice to the individual parts of the assignment.
-###3 Write the pseudocode of the problem solution.
+### 1 Analyze what types of synchronization tasks (or their modifications or combinations) are involved in this task.
+### 2 Exactly map the synchronization tasks (primitives) of your choice to the individual parts of the assignment.
+### 3 Write the pseudocode of the problem solution.
 
     def monitor(monitor_id):
         // Wait until sensors signal all data is ready
@@ -53,18 +53,16 @@ Each exercise has its own branch. The exercises are numbered 01 - 10.
         ls_cidlo = Lightswitch()
         validData = Barrier()
 
-        create_and_run_thread(cidlo, cidlo_P)
-        create_and_run_thread(cidlo, cidlo_T)
-        create_and_run_thread(cidlo, cidlo_H)
+        create_and_run_thread(sensor, sensor_P)
+        create_and_run_thread(sensor, sensor_T)
+        create_and_run_thread(sensor, sensor_H)
         for monitor_id in range(8):
             create_and_run_thread(monitor, monitor_id)
         
 
-###4 Write a program that will suitably model this synchronization task.
-
+### 4 Write a program that will suitably model this synchronization task.
 See the code in [main.py](main.py)
 
-###5 Listings:
-
+### 5 Listings:
 Example of code output:
 ![img.png](img.png)

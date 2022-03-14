@@ -2,7 +2,7 @@
 Repository for the course Parallel programming and distributed systems at FEI STU 2022.
 Each exercise has its own branch. The exercises are numbered 01 - 10.
 ---
-##Tasks
+## Tasks
 ### 1 Analyze what types of synchronization tasks (or their modifications or combinations) are involved in this task.
 ### 2 Exactly map the synchronization tasks (primitives) of your choice to the individual parts of the assignment.
 ### 3 Write the pseudocode of the problem solution.

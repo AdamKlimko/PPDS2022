@@ -28,16 +28,15 @@ Each exercise has its own branch. The exercises are numbered 01 - 10.
 
     def sensor(sensor_id):
         while True:
-            // Block turnstile so sensors can write
+            // Block turnstile to monitors so sensors can write
             turnstile.wait()
             // Always sleep before doing any actions
             sleep(50 - 60ms)
             // Get accsess to data
             active_sensors_count = ls_sensor.lock(access_data)
 
+        // Free turnstile
         turnstile.signal()
-
-    def init():
         write_time = 10-20ms or 20-25ms
         print('sensor {id} writing')
         sleep(write_time)
@@ -47,18 +46,18 @@ Each exercise has its own branch. The exercises are numbered 01 - 10.
         // Data updated, leave
         ls_sensor.unlock(access_data)
 
-def main():
-    access_data = Semaphore(1)
-    turnstile = Semaphore(1)
-    ls_monitor = Lightswitch()
-    ls_cidlo = Lightswitch()
-    validData = Barrier()
+    def main():
+        access_data = Semaphore(1)
+        turnstile = Semaphore(1)
+        ls_monitor = Lightswitch()
+        ls_cidlo = Lightswitch()
+        validData = Barrier()
 
-    create_and_run_thread(cidlo, cidlo_P)
-    create_and_run_thread(cidlo, cidlo_T)
-    create_and_run_thread(cidlo, cidlo_H)
-    for monitor_id in range(8):
-        create_and_run_thread(monitor, monitor_id)`
+        create_and_run_thread(cidlo, cidlo_P)
+        create_and_run_thread(cidlo, cidlo_T)
+        create_and_run_thread(cidlo, cidlo_H)
+        for monitor_id in range(8):
+            create_and_run_thread(monitor, monitor_id)
         
 
 ###4 Write a program that will suitably model this synchronization task.

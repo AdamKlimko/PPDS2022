@@ -18,7 +18,6 @@ __author__ = "Adam Klimko"
 __version__ = "1.0.0"
 __email__ = "xklimko@stuba.sk"
 
-
 class CustomBarrier:
     """A class serving as a barrier. The wait method is used to make some threads wait,
     while signal is used to trigger an event and let the threads go through.

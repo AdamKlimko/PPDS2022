@@ -2,7 +2,7 @@
 Repository for the course Parallel programming and distributed systems at FEI STU 2022.
 Each exercise has its own branch. The exercises are numbered 01 - 10.
 ---
-##The producer-consumer problem
+## The producer-consumer problem
 In this lab exercise we implement an example of producer-consumer problem.
 The main idea is that the producers and consumers use a shared storage space. Producers 
 produce some items and put them into storage. Consumers take them from storage

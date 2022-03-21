@@ -28,13 +28,17 @@ class SimpleBarrier(object):
 
 
 class Shared(object):
-    def __init__(self, m):
-        self.servings = m
+    def __init__(self, servings):
+        self.servings = servings
         self.mutex = Mutex()
+        self.mutex_cook = Mutex()
         self.empty_pot = Semaphore(0)
         self.full_pot = Semaphore(0)
         self.barrier1 = SimpleBarrier(N_SAVAGES)
         self.barrier2 = SimpleBarrier(N_SAVAGES)
+        self.barrier_cooks1 = SimpleBarrier(N_COOKS)
+        self.barrier_cooks2 = SimpleBarrier(N_COOKS)
+        self.cooks_finished = 0
 
 
 def eat():
@@ -46,12 +50,12 @@ def savage(i, shared):
     while True:
         shared.barrier1.wait()
         shared.barrier2.wait(each = f'savage {i}: waiting for dinner',
-                             last = f'savage {i}: everybody eating')
+                             last = f'savage {i}: everybody at dinner')
 
         shared.mutex.lock()
         if shared.servings == 0:
             print(f'savage {i}: pot empty!')
-            shared.empty_pot.signal()
+            shared.empty_pot.signal(N_COOKS)
             shared.full_pot.wait()
         print(f'savage {i}: take from pot')
         shared.servings -= 1
@@ -61,12 +65,22 @@ def savage(i, shared):
 
 def cook(i, shared):
     while True:
+        shared.barrier_cooks1.wait()
+        # shared.barrier_cooks2.wait()
+
         shared.empty_pot.wait()
         print(f'cook {i}: cooking')
         sleep(randint(50, 200) / 100)
-        print(f'cook {i}: put {N_SERVINGS} servings in pot')
-        shared.servings += N_SERVINGS
-        shared.full_pot.signal()
+        print(f'cook {i}: finished cooking')
+
+        shared.mutex_cook.lock()
+        shared.cooks_finished += 1
+        if shared.cooks_finished == N_COOKS:
+            print(f'cook {i}: put {N_SERVINGS} servings in pot')
+            shared.servings += N_SERVINGS
+            shared.full_pot.signal()
+            shared.cooks_finished = 0
+        shared.mutex_cook.unlock()
 
 
 def main():

@@ -52,7 +52,7 @@ a simple semaphore.
             print(f"savage {savage_id}: servings left in pot = {servings}))
             if servings == 0:
                 print(f"savage {savage_id}: pot is empty!")
-                emptyPot.signal()
+                emptyPot.signal(N_COOKS)
                 fullPot.wait()
             getServingFromPot(savage_id)
             mutex.unlock()

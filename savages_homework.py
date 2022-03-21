@@ -1,12 +1,34 @@
-from time import sleep
+#!/usr/bin/env python
+"""Exercise 5 of the course PPDS at FEI STU Bratislava
+This is a problem similar to producer-consumer, with the addition of
+counting the items that are being shared among threads and
+waiting for the item count to get to a certain value.
+
+The whole exercise can be found at:
+https://uim.fei.stuba.sk/i-ppds/5-cvicenie-problem-fajciarov-problem-divochov-%f0%9f%9a%ac/
+"""
+
+# Generic/Built-in
 from random import randint
-from fei.ppds import print, Semaphore, Mutex, Thread
+from time import sleep
+
+# Other Libs
+from fei.ppds import Mutex, Semaphore, Thread, print
+
+__author__ = "Adam Klimko"
+__version__ = "1.0.0"
+__email__ = "xklimko@stuba.sk"
+
 
 N_SAVAGES = 3
-N_COOKS = 3
-N_SERVINGS = 3
+N_COOKS = 2
+N_SERVINGS = 5
+
 
 class SimpleBarrier(object):
+    """A simple barrier class. N of threads wait at barrier. When N threads
+    arrive, then they can pass through
+    """
     def __init__(self, n_savages):
         self.n_savages = n_savages
         self.cnt = 0
@@ -28,6 +50,7 @@ class SimpleBarrier(object):
 
 
 class Shared(object):
+    """Shared class with variables shared between threads"""
     def __init__(self, servings):
         self.servings = servings
         self.mutex = Mutex()
@@ -36,8 +59,7 @@ class Shared(object):
         self.full_pot = Semaphore(0)
         self.barrier1 = SimpleBarrier(N_SAVAGES)
         self.barrier2 = SimpleBarrier(N_SAVAGES)
-        self.barrier_cooks1 = SimpleBarrier(N_COOKS)
-        self.barrier_cooks2 = SimpleBarrier(N_COOKS)
+        self.barrier_cooks = SimpleBarrier(N_COOKS)
         self.cooks_finished = 0
 
 
@@ -46,6 +68,8 @@ def eat():
 
 
 def savage(i, shared):
+    """Savages wait for everyone to arrive at dinner. When all are present they start eating.
+    If the pot is empty, they wake up the cooks"""
     sleep(randint(1,100)/100)
     while True:
         shared.barrier1.wait()
@@ -64,9 +88,10 @@ def savage(i, shared):
 
 
 def cook(i, shared):
+    """The cooks are woken up by savages when pot is empty. They start cooking and wait on each other
+    to finish their parts. When all finished, the last one signals savages the pot is full"""
     while True:
-        shared.barrier_cooks1.wait()
-        # shared.barrier_cooks2.wait()
+        shared.barrier_cooks.wait()
 
         shared.empty_pot.wait()
         print(f'cook {i}: cooking')

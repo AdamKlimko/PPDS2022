@@ -21,6 +21,6 @@ We use a FIFO queue to make sure the customers get their hair
 cut in the order they came to the waitroom. Find all the helpful
 code comments and documentation in the file [barbershop.py](barbershop.py).
 
-####Sample code output screenshot:
+#### Sample code output screenshot:
 
 ![img.png](img.png)

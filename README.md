@@ -8,4 +8,4 @@ Each exercise has its own branch. The exercises are numbered 01 - 10.
 - 03 - Producer-consumer
 - 04 - Lightswitch, Monitors-sensors
 - 05 - Savages
-
+- 06 - barbershop

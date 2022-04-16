@@ -1,8 +1,24 @@
+#!/usr/bin/env python
+"""Exercise 8 of the course PPDS at FEI STU Bratislava
+In this exercise we explore the benefits of async functions
+in python using the asyncio library. This example tests
+if using async has benefits in file manipulation.
+"""
+
+# Generic/Built-in
 import queue
 import time
 
+__author__ = "Adam Klimko"
+__version__ = "1.0.0"
+__email__ = "xklimko@stuba.sk"
+
 
 def task(name, work_queue):
+    """Current task takes filepath from work_queue and reads
+    the file. The elapsed time is printed out. This function
+    is a generator.
+    """
     while not work_queue.empty():
         path = work_queue.get()
         print(f"Task {name} reading file: {path}")

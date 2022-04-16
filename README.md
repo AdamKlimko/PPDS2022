@@ -49,5 +49,7 @@ The whole file's content bust be read no matter what, so it is best to read it a
 Since we have one thread available, reading files asynchronously only takes more time,
 because the processor jumps between reading multiple files.
 
+![image](https://user-images.githubusercontent.com/61107097/163680902-c359ffb6-4080-453f-8520-3a30db08d805.png)
+
 
 

@@ -15,7 +15,7 @@ Each exercise has its own branch. The exercises are numbered 01 - 10.
 
 ## Intro to CUDA
 
-![](../../../../../AppData/Local/Temp/1_Z_vXwV0SPudOAdlZnoAkWA.png)
+![](https://upload.wikimedia.org/wikipedia/en/b/b9/Nvidia_CUDA_Logo.jpg)
 
 This exercise follows the course PPDS at FEI STU,
 [exercise's page](https://uim.fei.stuba.sk/i-ppds/9-cvicenie-cuda-pomocou-numba/).

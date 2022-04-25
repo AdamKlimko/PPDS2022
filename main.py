@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+"""Exercise 09 of the course PPDS at FEI STU Bratislava
+In this exercise we explore the benefits of CUDA programming
+"""
+
+__author__ = "Adam Klimko"
+__version__ = "1.0.0"
+__email__ = "xklimko@stuba.sk"
+
 from __future__ import division
 from numba import cuda
 import numpy

@@ -16,8 +16,8 @@ import math
 
 
 # Shape of matrix (SIZE x SIZE)
-SIZE = 100
-N_MATRICES = 5
+SIZE = 32
+N_MATRICES = 15
 
 
 @cuda.jit
@@ -52,11 +52,13 @@ if __name__ == '__main__':
         data_gpu_in.append(cuda.to_device(input_matrices[k]))
         data_gpu_out.append(cuda.to_device(output_matrices[k]))
 
+    # Run
     for k in range(N_MATRICES):
         block_dim = (SIZE // 32, SIZE // 32)
         grid_dim = (32, 32)
         my_kernel_2D[grid_dim, block_dim](data_gpu_in[k], data_gpu_out[k])
 
+    # Data from GPU
     for k in range(N_MATRICES):
         gpu_out.append(data_gpu_in[k].copy_to_host())
 

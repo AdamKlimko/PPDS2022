@@ -16,7 +16,8 @@ import math
 
 
 # Shape of matrix (SIZE x SIZE)
-SIZE = 200
+SIZE = 100
+N_MATRICES = 5
 
 
 @cuda.jit
@@ -33,17 +34,32 @@ def my_kernel_2D(input, output):
 
 
 if __name__ == '__main__':
-    matrix1 = numpy.random.randint(5, size=(SIZE, SIZE))
-    matrix2 = numpy.zeros((SIZE, SIZE))
+    input_matrices = []
+    output_matrices = []
+    data_gpu_in = []
+    data_gpu_out = []
+    gpu_out = []
 
-    threadsperblock = (SIZE, SIZE)
-    blockspergrid_x = math.ceil(matrix1.shape[0] / threadsperblock[0])
-    blockspergrid_y = math.ceil(matrix1.shape[1] / threadsperblock[1])
-    blockspergrid = (blockspergrid_x, blockspergrid_y)
+    # Initialize IO matrices
+    for _ in range(N_MATRICES):
+        input_matrices.append(numpy.random.randint(5, size=(SIZE, SIZE)))
+        output_matrices.append(numpy.zeros((SIZE, SIZE)))
 
     start_time = perf_counter()
-    print(matrix1)
-    my_kernel_2D[blockspergrid, threadsperblock](matrix1, matrix2)
-    print(matrix2)
+
+    # Data to GPU
+    for k in range(N_MATRICES):
+        data_gpu_in.append(cuda.to_device(input_matrices[k]))
+        data_gpu_out.append(cuda.to_device(output_matrices[k]))
+
+    for k in range(N_MATRICES):
+        block_dim = (SIZE // 32, SIZE // 32)
+        grid_dim = (32, 32)
+        my_kernel_2D[grid_dim, block_dim](data_gpu_in[k], data_gpu_out[k])
+
+    for k in range(N_MATRICES):
+        gpu_out.append(data_gpu_in[k].copy_to_host())
+
     end_time = perf_counter()
+
     print(f'Total time: {round(end_time - start_time, 2)}s')

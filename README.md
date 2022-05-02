@@ -12,3 +12,4 @@ Each exercise has its own branch. The exercises are numbered 01 - 10.
 - 07 - oops
 - 08 - async programming
 - 09 - CUDA intro
+- 10 - CUDA optimization

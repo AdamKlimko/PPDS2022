@@ -12,14 +12,17 @@ Each exercise has its own branch. The exercises are numbered 01 - 10.
 - 07 - oops
 - 08 - async programming
 - 09 - CUDA intro
+- 10 - CUDA optimization
 
-## Intro to CUDA
+## CUDA optimization
 
 ![](https://upload.wikimedia.org/wikipedia/en/b/b9/Nvidia_CUDA_Logo.jpg)
 
 This exercise follows the course PPDS at FEI STU,
-[exercise's page](https://uim.fei.stuba.sk/i-ppds/9-cvicenie-cuda-pomocou-numba/).
+[exercise's page](https://uim.fei.stuba.sk/i-ppds/cvicenie-10-cuda-prudy-a-udalosti/).
 
-The code inside [main.py](main.py) demonstrates a simple use of CUDA to
-perform a matrix transposition. It's accessing multiple threads and each 
-thread computes one value from the matrix. The matrix must be square shaped.  
+For the last exercise we have a script that executes matrix transposition on multiple
+matrices. In the file [not_optimized.py](not_optimized.py) this happens sequentially.
+We add optimization using GPU streams in the 2nd file [optimized.py](optimized.py).
+To see the result we need to run the script with the presence of a CUDA
+compatible graphics card(nvidia).

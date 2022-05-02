@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-"""Exercise 09 of the course PPDS at FEI STU Bratislava
-In this exercise we explore the benefits of CUDA programming
+"""Exercise 10 of the course PPDS at FEI STU Bratislava
+In this exercise we explore the benefits of CUDA streams
 """
 
 from __future__ import division
@@ -12,8 +12,6 @@ from time import perf_counter
 from numba import cuda
 
 import numpy
-import math
-
 
 # Shape of matrix (SIZE x SIZE)
 SIZE = 32
